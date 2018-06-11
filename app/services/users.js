@@ -17,7 +17,20 @@ async function create (userData) {
   }
 }
 
+async function findOrCreate (query, data) {
+  let user = await User.findOne(query).exec();
+
+  if (user) {
+    return user;
+  } else {
+    user = await create(data);
+  }
+
+  return user;
+}
+
 module.exports = {
   findOne,
   create,
+  findOrCreate,
 };

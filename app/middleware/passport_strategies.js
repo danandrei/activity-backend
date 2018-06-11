@@ -1,5 +1,4 @@
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
 const { ExtractJwt } = require('passport-jwt');
 
@@ -10,32 +9,6 @@ const nconf = require('nconf');
 // Secrets
 const secrets = nconf.get('secrets');
 const JWT_SECRET = secrets.jwtSecret;
-
-/**
- * Local strategy.
- */
-passport.use(new LocalStrategy({
-  usernameField: 'email',
-  session: false,
-}, async (email, password, done) => {
-
-  try {
-    const user = await User.findOne({ email: email }).exec();
-
-    if (!user) {
-      return done(null, false, 'Invalid email or password');
-    }
-
-    const passwordMatch = await user.comparePassword(password);
-    if (!passwordMatch) {
-      return done(null, false, 'Invalid email or password');
-    }
-
-    return done(null, user);
-  } catch (error) {
-    return done(error);
-  }
-}));
 
 /**
  * JWT strategy code.

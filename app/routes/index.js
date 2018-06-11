@@ -39,8 +39,8 @@ const apiRouter = express.Router();
 /**
  * Auth.
  */
-apiRouter.post('/auth',
-  controllerHandler(auth.signin, (req, res, next) => [req, res])
+apiRouter.get('/auth/gitlab',
+  controllerHandler(auth.gitlabToken, (req, res, next) => [req.query.code])
 );
 
 /**

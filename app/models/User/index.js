@@ -9,11 +9,10 @@ const {
 
 /* User schema */
 const User = new Schema({
-  firstName: {
-    type: String,
-    required: true,
+  gitlab_id: {
+    type: Number
   },
-  lastName: {
+  name: {
     type: String,
     required: true,
   },
